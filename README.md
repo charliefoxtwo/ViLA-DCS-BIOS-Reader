@@ -9,7 +9,7 @@ DCS-BIOS Reader reads integer output data from DCS-BIOS and sends the read value
 
 ## Installation
 
-To install the plugin, download the latest version from [Releases](releases) and unzip it into the `Plugins/` folder of your ViLA installation (so you have `ViLA/Plugins/DcsBiosReader/<dll files>`.) ViLA should auto-detect it on next run.
+To install the plugin, download the latest version from Releases and unzip it into the `Plugins/` folder of your ViLA installation (so you have `ViLA/Plugins/DcsBiosReader/<dll files>`.) ViLA should auto-detect it on next run.
 
 
 ## Configuring ViLA
