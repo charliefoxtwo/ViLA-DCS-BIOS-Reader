@@ -8,19 +8,29 @@ namespace ViLA.Extensions.DcsBiosReader
     {
         private readonly ILogger<Translator> _log;
 
-        private readonly Action<string, int>? _onReceive;
+        private readonly Action<string, int>? _onIntReceive;
+        private readonly Action<string, string>? _onStringReceive;
 
-        public Translator(ILogger<Translator> log, Action<string, int>? onReceive)
+        public Translator(ILogger<Translator> log, Action<string, int>? onIntReceive, Action<string, string>? onStringReceive)
         {
-            _onReceive = onReceive;
+            _onIntReceive = onIntReceive;
+            _onStringReceive = onStringReceive;
             _log = log;
         }
 
         public void FromBios<T>(string biosCode, T data)
         {
-            if (data is not int intData) return; // we can only handle int data currently
-            _log.LogDebug("Got data {{{Data}}} from biosCode {{{BiosCode}}}", intData, biosCode);
-            _onReceive?.Invoke(biosCode, intData);
+            switch (data)
+            {
+                case int intData:
+                    _log.LogDebug("Got data {{{Data}}} from biosCode {{{BiosCode}}}", intData, biosCode);
+                    _onIntReceive?.Invoke(biosCode, intData);
+                    break;
+                case string stringData:
+                    _log.LogDebug("Got data {{{Data}}} from biosCode {{{BiosCode}}}", stringData, biosCode);
+                    _onStringReceive?.Invoke(biosCode, stringData);
+                    break;
+            }
         }
     }
 }

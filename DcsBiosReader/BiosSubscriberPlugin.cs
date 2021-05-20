@@ -15,7 +15,7 @@ namespace ViLA.Extensions.DcsBiosReader
             var client = new BiosUdpClient(IPAddress.Parse("239.255.50.10"), 7778, 5010, LoggerFactory.CreateLogger<BiosUdpClient>());
             client.OpenConnection();
 
-            var biosListener = new BiosListener(client, new Translator(LoggerFactory.CreateLogger<Translator>(), SendData), LoggerFactory.CreateLogger<BiosListener>());
+            var biosListener = new BiosListener(client, new Translator(LoggerFactory.CreateLogger<Translator>(), SendData, SendString), LoggerFactory.CreateLogger<BiosListener>());
 
             var configLocation = "%userprofile%/Saved Games/DCS.openbeta/Scripts/DCS-BIOS/doc/json/";
             foreach (var config in await AircraftBiosConfiguration.AllConfigurations(configLocation))

@@ -1,8 +1,8 @@
 # ViLA DCS-BIOS Reader Plugin
 
 [![.NET 5 CI build](https://github.com/charliefoxtwo/ViLA-DCS-BIOS-Reader/actions/workflows/ci-build.yml/badge.svg?branch=develop)](https://github.com/charliefoxtwo/ViLA-DCS-BIOS-Reader/actions/workflows/ci-build.yml)
-![GitHub](https://img.shields.io/github/license/charliefoxtwo/ViLA-DCS-BIOS-Reader?style=flat-square)
-![Discord](https://img.shields.io/discord/840762843917582347?style=flat-square)
+[![GitHub](https://img.shields.io/github/license/charliefoxtwo/ViLA-DCS-BIOS-Reader?style=flat-square)](LICENSE)
+[![Discord](https://img.shields.io/discord/840762843917582347?style=flat-square)](https://discord.gg/rWAF3AdsKT)
 
 DCS-BIOS Reader reads integer output data from DCS-BIOS and sends the read values the an id matching the DCS-BIOS id (not including the aircraft name). It is currently hardcoded to use DCS Open Beta, but will be expanded with configuration options in the future.
 
