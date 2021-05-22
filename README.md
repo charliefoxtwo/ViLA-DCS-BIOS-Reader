@@ -30,6 +30,16 @@ When setting up your actions in ViLA, it's recommended to use the DCS-BIOS refer
 }
 ```
 
+## Configuring the DCS-BIOS Reader plugin
+After running ViLA with this plugin for the first time, a `config.json` file will be automatically generated in the folder you put the plugin. You can edit the values in `configLocations` depending on your setup. For example, if you're not running open beta, you're running on steam, or you are using a different version of DCS-BIOS that just stores the config files somewhere else, you might need to change this value.
+
+If you're using Steam or the stable version of DCS, change this value to:
+ - `"configLocations" = [ "%userprofile%/Saved Games/DCS/Scripts/DCS-BIOS/doc/json/" ]` 
+
+If you're using the original bios (not the recommended FlightPanels fork), try
+ - `"configLocations" = [ "%appdata%/DCS-BIOS/control-reference/json/" ]`
+
+When in doubt, just check these folders and see which one is full of json files!
 
 ## Roadmap
 
