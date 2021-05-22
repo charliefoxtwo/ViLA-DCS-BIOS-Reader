@@ -23,11 +23,11 @@ namespace ViLA.Extensions.DcsBiosReader
             switch (data)
             {
                 case int intData:
-                    _log.LogDebug("Got data {{{Data}}} from biosCode {{{BiosCode}}}", intData, biosCode);
+                    _log.LogTrace("Got data {{{Data}}} from biosCode {{{BiosCode}}}", intData, biosCode);
                     _onIntReceive?.Invoke(biosCode, intData);
                     break;
                 case string stringData:
-                    _log.LogDebug("Got data {{{Data}}} from biosCode {{{BiosCode}}}", stringData, biosCode);
+                    _log.LogTrace("Got data {{{Data}}} from biosCode {{{BiosCode}}}", stringData, biosCode);
                     _onStringReceive?.Invoke(biosCode, stringData);
                     break;
             }
