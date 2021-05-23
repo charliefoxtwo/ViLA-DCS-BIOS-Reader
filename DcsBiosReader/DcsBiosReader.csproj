@@ -21,6 +21,18 @@
       <Content Include="manifest.json">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </Content>
+      <None Remove="SampleConfiguration\A-10C.json" />
+      <Content Include="DCSBiosReaderConfiguration\A-10C.json">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </Content>
+      <None Remove="SampleConfiguration\FA-18C.json" />
+      <Content Include="DCSBiosReaderConfiguration\FA-18C.json">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </Content>
+      <None Remove="SampleConfiguration\UH-1H.json" />
+      <Content Include="DCSBiosReaderConfiguration\UH-1H.json">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </Content>
     </ItemGroup>
 
 </Project>

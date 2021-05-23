@@ -1,0 +1,1 @@
+Included in this folder are some configuration files you can use to get up and running quickly, or reference when building your own. If you wish to use these files, place them in your Configuration folder.
