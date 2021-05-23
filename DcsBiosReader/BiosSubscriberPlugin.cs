@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.IO;
+﻿using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using DcsBios.Communicator;
@@ -11,7 +10,10 @@ namespace ViLA.Extensions.DcsBiosReader
 {
     public class BiosSubscriberPlugin : PluginBase.PluginBase
     {
-        public const string ConfigPath = "config.json";
+        /// <summary>
+        /// ConfigPath is relative to ViLA, *not* to this dll
+        /// </summary>
+        public const string ConfigPath = "Plugins/DcsBiosReader/config.json";
 
         public override async Task<bool> Start()
         {
