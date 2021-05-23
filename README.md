@@ -11,6 +11,7 @@ DCS-BIOS Reader reads integer output data from DCS-BIOS and sends the read value
 
 To install the plugin, download the latest version from Releases and unzip it into the `Plugins/` folder of your ViLA installation (so you have `ViLA/Plugins/DcsBiosReader/<dll files>`.) ViLA should auto-detect it on next run.
 
+For a quick start, copy the `DCSBiosReaderConfiguration` folder over to ViLA's configuration folder.
 
 ## Configuring ViLA
 
@@ -22,10 +23,6 @@ When setting up your actions in ViLA, it's recommended to use the DCS-BIOS refer
         "biosCode": "MASTER_CAUTION_LT",
         "value": 1,
         "comparator": "EqualTo"
-    },
-    "target": {
-        "ledNumber": 1,
-        "boardType": "OnBoard"
     }
 }
 ```
