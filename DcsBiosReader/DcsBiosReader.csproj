@@ -5,8 +5,8 @@
         <RootNamespace>ViLA.Extensions.DcsBiosReader</RootNamespace>
         <Nullable>enable</Nullable>
         <CopyOutputSymbolsToPublishDirectory>false</CopyOutputSymbolsToPublishDirectory>
-        <AssemblyVersion>1.1.0</AssemblyVersion>
-        <FileVersion>1.1.0</FileVersion>
+        <AssemblyVersion>2.0.0</AssemblyVersion>
+        <FileVersion>2.0.0</FileVersion>
     </PropertyGroup>
 
     <ItemGroup>
@@ -17,8 +17,20 @@
     </ItemGroup>
 
     <ItemGroup>
-      <None Remove="manifest.txt" />
-      <Content Include="manifest.txt">
+      <None Remove="manifest.json" />
+      <Content Include="manifest.json">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </Content>
+      <None Remove="SampleConfiguration\A-10C.json" />
+      <Content Include="DCSBiosReaderConfiguration\A-10C.json">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </Content>
+      <None Remove="SampleConfiguration\FA-18C.json" />
+      <Content Include="DCSBiosReaderConfiguration\FA-18C.json">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </Content>
+      <None Remove="SampleConfiguration\UH-1H.json" />
+      <Content Include="DCSBiosReaderConfiguration\UH-1H.json">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </Content>
     </ItemGroup>

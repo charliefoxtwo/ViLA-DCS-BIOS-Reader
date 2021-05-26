@@ -1,8 +1,8 @@
-name: Publish prerelease build
+name: develop ci
 
 on:
   push:
-    branches: [ main ]
+    branches: [ develop ]
 
 jobs:
   build:
@@ -30,6 +30,6 @@ jobs:
         repo_token: "${{ secrets.GITHUB_TOKEN }}"
         automatic_release_tag: "latest"
         prerelease: true
-        title: "Latest Build"
+        title: "alpha"
         files: |
             **/DcsBiosReader.zip

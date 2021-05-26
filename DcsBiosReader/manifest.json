@@ -1,0 +1,5 @@
+﻿{
+    "entrypoint": "DcsBiosReader.dll",
+    "version": "2.0.0",
+    "releases": "https://api.github.com/repos/charliefoxtwo/ViLA-DCS-BIOS-Reader/releases"
+}
