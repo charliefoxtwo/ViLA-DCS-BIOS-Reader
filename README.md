@@ -6,6 +6,11 @@
 
 DCS-BIOS Reader reads integer output data from DCS-BIOS and sends the read values the an id matching the DCS-BIOS id (not including the aircraft name). It is currently hardcoded to use DCS Open Beta, but will be expanded with configuration options in the future.
 
+## Prerequisites
+
+This plugin requires you to have DCS-BIOS installed. Any version should work but the [Flightpanels fork](https://github.com/DCSFlightpanels/dcs-bios) is recommended.
+
+For installation instructions, follow [this wiki](https://github.com/DCSFlightpanels/DCSFlightpanels/wiki/Installation) up until **Installation of DCSFP** (Flightpanels is **not** required for this plugin).
 
 ## Installation
 
@@ -41,7 +46,6 @@ When in doubt, just check these folders and see which one is full of json files!
 ## Roadmap
 
  - Unit tests
- - Configuration
 
 
 ## Acknowledgements
