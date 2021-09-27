@@ -19,7 +19,18 @@ namespace ViLA.Extensions.DcsBiosReader
         {
             var log = LoggerFactory.CreateLogger<BiosSubscriberPlugin>();
 
-            var pluginConfig = await GetConfiguration();
+            PluginConfiguration pluginConfig;
+
+            try
+            {
+                pluginConfig = await GetConfiguration();
+            }
+            catch (JsonSerializationException ex)
+            {
+                log.LogError("Encountered error while loading configuration for DcsBiosReader. Skipping...");
+                log.LogDebug(ex, "Exception:");
+                return false;
+            }
 
             var client = new BiosUdpClient(pluginConfig.Export!.Ip, pluginConfig.Export!.SendPort, pluginConfig.Export!.ReceivePort, LoggerFactory.CreateLogger<BiosUdpClient>());
             client.OpenConnection();
@@ -27,7 +38,7 @@ namespace ViLA.Extensions.DcsBiosReader
             var biosListener = new BiosListener(client, new Translator(LoggerFactory.CreateLogger<Translator>(), SendData, SendString), LoggerFactory.CreateLogger<BiosListener>());
 
             var configsLoaded = 0;
-            foreach (var config in await AircraftBiosConfiguration.AllConfigurations(pluginConfig.ConfigLocations.ToArray()))
+            foreach (var config in await AircraftBiosConfiguration.AllConfigurations(pluginConfig.AliasesFileName, LoggerFactory.CreateLogger<AircraftBiosConfiguration>(), pluginConfig.ConfigLocations.ToArray()))
             {
                 biosListener.RegisterConfiguration(config);
                 configsLoaded++;
@@ -45,33 +56,20 @@ namespace ViLA.Extensions.DcsBiosReader
             return true;
         }
 
+        /// <summary>
+        /// Gets the existing plugin configuration, or writes a new configuration file.
+        /// </summary>
+        /// <exception cref="JsonSerializationException">Thrown when deserializing the plugin config into the expected POCO fails.</exception>
         private static async Task<PluginConfiguration> GetConfiguration()
         {
-            PluginConfiguration? pluginConfig = null;
-            var getAndWriteDefaultConfig = true;
-
             if (File.Exists(ConfigPath))
             {
-                getAndWriteDefaultConfig = false;
-
                 var configString = await File.ReadAllTextAsync(ConfigPath);
-                pluginConfig = JsonConvert.DeserializeObject<PluginConfiguration>(configString);
-
-                if (pluginConfig is null)
-                {
-                    getAndWriteDefaultConfig = true;
-                }
-                else if (pluginConfig.Export is null)
-                {
-                    pluginConfig.Export = PluginConfiguration.Default().Export;
-                }
+                return JsonConvert.DeserializeObject<PluginConfiguration>(configString) ?? throw new JsonSerializationException("Result was null");
             }
 
-            if (getAndWriteDefaultConfig)
-            {
-                pluginConfig = PluginConfiguration.Default();
-                await File.WriteAllTextAsync(ConfigPath, JsonConvert.SerializeObject(pluginConfig));
-            }
+            var pluginConfig = new PluginConfiguration();
+            await File.WriteAllTextAsync(ConfigPath, JsonConvert.SerializeObject(pluginConfig));
 
             return pluginConfig!;
         }
