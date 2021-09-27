@@ -7,21 +7,14 @@ namespace ViLA.Extensions.DcsBiosReader
 {
     public class PluginConfiguration
     {
-        public HashSet<string> ConfigLocations { get; set; } = null!;
-        public EndpointConfiguration? Export { get; set; }
+        public string? AliasesFileName { get; set; } = "AircraftAliases.json";
+        public HashSet<string> ConfigLocations { get; set; } = new() { "%userprofile%/Saved Games/DCS.openbeta/Scripts/DCS-BIOS/doc/json/" };
 
-        public static PluginConfiguration Default()
+        public EndpointConfiguration Export { get; set; } = new()
         {
-            return new()
-            {
-                ConfigLocations = new HashSet<string> { "%userprofile%/Saved Games/DCS.openbeta/Scripts/DCS-BIOS/doc/json/" },
-                Export = new EndpointConfiguration
-                {
-                    IpAddress = "239.255.50.10",
-                    SendPort = 7778,
-                    ReceivePort = 5010,
-                }
-            };
-        }
+            IpAddress = "239.255.50.10",
+            SendPort = 7778,
+            ReceivePort = 5010,
+        };
     }
 }
