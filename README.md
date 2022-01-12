@@ -8,7 +8,7 @@ DCS-BIOS Reader reads integer output data from DCS-BIOS and sends the read value
 
 ## Prerequisites
 
-This plugin requires you to have DCS-BIOS installed. Any version should work but the [Flightpanels fork](https://github.com/DCSFlightpanels/dcs-bios) is recommended.
+This plugin requires you to have DCS-BIOS installed. Any version should work but the [Flightpanels fork](https://github.com/DCSFlightpanels/dcs-bios) is highly recommended. If you are having problems, **please triple-check to make sure you are using the Flightpanels fork and _only_ the Flightpanels fork**.
 
 For installation instructions, follow [this wiki](https://github.com/DCSFlightpanels/DCSFlightpanels/wiki/Installation) up until **Installation of DCSFP** (Flightpanels is **not** required for this plugin).
 
@@ -36,12 +36,7 @@ When setting up your actions in ViLA, it's recommended to use the DCS-BIOS refer
 After running ViLA with this plugin for the first time, a `config.json` file will be automatically generated in the folder you put the plugin. You can edit the values in `configLocations` depending on your setup. For example, if you're not running open beta, you're running on steam, or you are using a different version of DCS-BIOS that just stores the config files somewhere else, you might need to change this value.
 
 If you're using Steam or the stable version of DCS, change this value to:
- - `"configLocations" = [ "%userprofile%/Saved Games/DCS/Scripts/DCS-BIOS/doc/json/" ]` 
-
-If you're using the original bios (not the recommended FlightPanels fork), try
- - `"configLocations" = [ "%appdata%/DCS-BIOS/control-reference/json/" ]`
-
-When in doubt, just check these folders and see which one is full of json files!
+ - `"configLocations" = [ "%userprofile%/Saved Games/DCS/Scripts/DCS-BIOS/doc/json/" ]`
 
 ## Roadmap
 
