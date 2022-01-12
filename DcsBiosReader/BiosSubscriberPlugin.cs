@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using DcsBios.Communicator;
@@ -8,12 +9,15 @@ using Newtonsoft.Json;
 
 namespace ViLA.Extensions.DcsBiosReader
 {
-    public class BiosSubscriberPlugin : PluginBase.PluginBase
+    public class BiosSubscriberPlugin : PluginBase.PluginBase, IDisposable
     {
         /// <summary>
         /// ConfigPath is relative to ViLA, *not* to this dll
         /// </summary>
         public const string ConfigPath = "Plugins/DcsBiosReader/config.json";
+
+        private BiosListener? _biosListener;
+        private BiosUdpClient? _client;
 
         public override async Task<bool> Start()
         {
@@ -32,15 +36,15 @@ namespace ViLA.Extensions.DcsBiosReader
                 return false;
             }
 
-            var client = new BiosUdpClient(pluginConfig.Export!.Ip, pluginConfig.Export!.SendPort, pluginConfig.Export!.ReceivePort, LoggerFactory.CreateLogger<BiosUdpClient>());
-            client.OpenConnection();
+            _client = new BiosUdpClient(pluginConfig.Export.Ip, pluginConfig.Export.SendPort, pluginConfig.Export.ReceivePort, LoggerFactory.CreateLogger<BiosUdpClient>());
+            _client.OpenConnection();
 
-            var biosListener = new BiosListener(client, new Translator(LoggerFactory.CreateLogger<Translator>(), SendData, SendString), LoggerFactory.CreateLogger<BiosListener>());
+            _biosListener = new BiosListener(_client, new Translator(LoggerFactory.CreateLogger<Translator>(), Send), LoggerFactory.CreateLogger<BiosListener>());
 
             var configsLoaded = 0;
             foreach (var config in await AircraftBiosConfiguration.AllConfigurations(pluginConfig.AliasesFileName, LoggerFactory.CreateLogger<AircraftBiosConfiguration>(), pluginConfig.ConfigLocations.ToArray()))
             {
-                biosListener.RegisterConfiguration(config);
+                _biosListener.RegisterConfiguration(config);
                 configsLoaded++;
             }
 
@@ -52,8 +56,14 @@ namespace ViLA.Extensions.DcsBiosReader
 
             log.LogInformation("Starting bios listener...");
 
-            biosListener.Start();
+            _biosListener.Start();
             return true;
+        }
+
+        public override Task Stop()
+        {
+            Dispose();
+            return Task.CompletedTask;
         }
 
         /// <summary>
@@ -71,7 +81,14 @@ namespace ViLA.Extensions.DcsBiosReader
             var pluginConfig = new PluginConfiguration();
             await File.WriteAllTextAsync(ConfigPath, JsonConvert.SerializeObject(pluginConfig));
 
-            return pluginConfig!;
+            return pluginConfig;
+        }
+
+        public void Dispose()
+        {
+            GC.SuppressFinalize(this);
+            _biosListener?.Dispose();
+            _client?.Dispose();
         }
     }
 }
