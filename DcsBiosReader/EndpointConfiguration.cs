@@ -6,34 +6,33 @@ using Newtonsoft.Json;
 // ReSharper disable NonReadonlyMemberInGetHashCode
 // ReSharper disable PropertyCanBeMadeInitOnly.Global
 
-namespace ViLA.Extensions.DcsBiosReader
+namespace ViLA.Extensions.DcsBiosReader;
+
+public class EndpointConfiguration
 {
-    public class EndpointConfiguration
+    public string IpAddress { get; set; } = null!;
+
+    [JsonIgnore]
+    public IPAddress Ip => IPAddress.Parse(IpAddress);
+
+    [Range(1, 65535)]
+    public int SendPort { get; set; }
+    [Range(1, 65535)]
+    public int ReceivePort { get; set; }
+
+    public override bool Equals(object? obj)
     {
-        public string IpAddress { get; set; } = null!;
+        // ReSharper disable once BaseObjectEqualsIsObjectEquals
+        return base.Equals(obj);
+    }
 
-        [JsonIgnore]
-        public IPAddress Ip => IPAddress.Parse(IpAddress);
+    protected bool Equals(EndpointConfiguration other)
+    {
+        return IpAddress == other.IpAddress && SendPort == other.SendPort && ReceivePort == other.ReceivePort;
+    }
 
-        [Range(1, 65535)]
-        public int SendPort { get; set; }
-        [Range(1, 65535)]
-        public int ReceivePort { get; set; }
-
-        public override bool Equals(object? obj)
-        {
-            // ReSharper disable once BaseObjectEqualsIsObjectEquals
-            return base.Equals(obj);
-        }
-
-        protected bool Equals(EndpointConfiguration other)
-        {
-            return IpAddress == other.IpAddress && SendPort == other.SendPort && ReceivePort == other.ReceivePort;
-        }
-
-        public override int GetHashCode()
-        {
-            return HashCode.Combine(IpAddress, SendPort, ReceivePort);
-        }
+    public override int GetHashCode()
+    {
+        return HashCode.Combine(IpAddress, SendPort, ReceivePort);
     }
 }

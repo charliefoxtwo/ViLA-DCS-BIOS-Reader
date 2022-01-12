@@ -1,13 +1,14 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFramework>net5.0</TargetFramework>
+        <TargetFramework>net6.0</TargetFramework>
         <RootNamespace>ViLA.Extensions.DcsBiosReader</RootNamespace>
         <Nullable>enable</Nullable>
         <CopyOutputSymbolsToPublishDirectory>false</CopyOutputSymbolsToPublishDirectory>
         <AssemblyVersion>2.1.1</AssemblyVersion>
         <FileVersion>2.1.1</FileVersion>
         <IsPackable>false</IsPackable>
+        <LangVersion>default</LangVersion>
     </PropertyGroup>
 
     <ItemGroup>
