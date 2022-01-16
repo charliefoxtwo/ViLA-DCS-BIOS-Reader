@@ -39,7 +39,7 @@ public class BiosSubscriberPlugin : PluginBase.PluginBase, IDisposable
         _client = new BiosUdpClient(pluginConfig.Export.Ip, pluginConfig.Export.SendPort, pluginConfig.Export.ReceivePort, LoggerFactory.CreateLogger<BiosUdpClient>());
         _client.OpenConnection();
 
-        _biosListener = new BiosListener(_client, new Translator(LoggerFactory.CreateLogger<Translator>(), Send), LoggerFactory.CreateLogger<BiosListener>());
+        _biosListener = new BiosListener(_client, new Translator(LoggerFactory.CreateLogger<Translator>(), Send, this.ClearState), LoggerFactory.CreateLogger<BiosListener>());
 
         var configsLoaded = 0;
         foreach (var config in await AircraftBiosConfiguration.AllConfigurations(pluginConfig.AliasesFileName, LoggerFactory.CreateLogger<AircraftBiosConfiguration>(), pluginConfig.ConfigLocations.ToArray()))
