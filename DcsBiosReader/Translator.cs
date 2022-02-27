@@ -2,24 +2,35 @@ using System;
 using DcsBios.Communicator;
 using Microsoft.Extensions.Logging;
 
-namespace ViLA.Extensions.DcsBiosReader
+namespace ViLA.Extensions.DcsBiosReader;
+
+public class Translator : IBiosTranslator
 {
-    public class Translator : IBiosTranslator
+    private readonly ILogger<Translator> _log;
+
+    private readonly Action<string, dynamic>? _onDataReceive;
+
+    private readonly Action _clearStateAction;
+
+    private string _lastAircraftName = "";
+
+    public Translator(ILogger<Translator> log, Action<string, dynamic>? onDataReceive, Action clearStateAction)
     {
-        private readonly ILogger<Translator> _log;
+        _onDataReceive = onDataReceive;
+        _log = log;
+        _clearStateAction = clearStateAction;
+    }
 
-        private readonly Action<string, dynamic>? _onDataReceive;
+    public void FromBios<T>(string biosCode, T data)
+    {
+        _log.LogTrace("Got data {{{Data}}} from biosCode {{{BiosCode}}}", data, biosCode);
 
-        public Translator(ILogger<Translator> log, Action<string, dynamic>? onDataReceive)
+        if (biosCode == BiosListener.AircraftNameBiosCode && data is string s && s != _lastAircraftName)
         {
-            _onDataReceive = onDataReceive;
-            _log = log;
+            _lastAircraftName = s;
+            _clearStateAction();
         }
 
-        public void FromBios<T>(string biosCode, T data)
-        {
-            _log.LogTrace("Got data {{{Data}}} from biosCode {{{BiosCode}}}", data, biosCode);
-            _onDataReceive?.Invoke(biosCode, data);
-        }
+        _onDataReceive?.Invoke(biosCode, data);
     }
 }

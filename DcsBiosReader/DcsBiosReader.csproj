@@ -1,18 +1,19 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFramework>net5.0</TargetFramework>
+        <TargetFramework>net6.0</TargetFramework>
         <RootNamespace>ViLA.Extensions.DcsBiosReader</RootNamespace>
         <Nullable>enable</Nullable>
         <CopyOutputSymbolsToPublishDirectory>false</CopyOutputSymbolsToPublishDirectory>
-        <AssemblyVersion>2.1.1</AssemblyVersion>
-        <FileVersion>2.1.1</FileVersion>
+        <AssemblyVersion>3.0.0</AssemblyVersion>
+        <FileVersion>3.0.0</FileVersion>
         <IsPackable>false</IsPackable>
+        <LangVersion>default</LangVersion>
     </PropertyGroup>
 
     <ItemGroup>
       <PackageReference Include="DcsBios.Communicator" Version="3.0.1" />
-      <PackageReference Include="ViLA.PluginBase" Version="2.0.0-rc.1">
+      <PackageReference Include="ViLA.PluginBase" Version="2.0.0">
           <ExcludeAssets>runtime</ExcludeAssets>
       </PackageReference>
     </ItemGroup>
