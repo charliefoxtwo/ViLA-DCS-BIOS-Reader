@@ -12,7 +12,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="DcsBios.Communicator" Version="4.0.0" />
+      <PackageReference Include="DcsBios.Communicator" Version="4.1.0" />
       <PackageReference Include="ViLA.PluginBase" Version="2.1.1">
           <ExcludeAssets>runtime</ExcludeAssets>
       </PackageReference>
